@@ -1,5 +1,5 @@
 import express from "express";
-import { startDB } from "./config/database.js";
+import { startDB } from "./src/config/database.js";
 
 
 const app = express();
