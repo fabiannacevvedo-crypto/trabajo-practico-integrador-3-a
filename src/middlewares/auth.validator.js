@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import { UserModel } from "../models/user.model.js";
-import { validateResult } from "./validator.middleware.js";
+import { validateResult } from "./validator.middleware.js"; 
 
 
 // Validador para registro de usuario (POST /api/auth/register)

@@ -1,5 +1,5 @@
 import { verifyToken } from "../helpers/jwt.helper.js";
-import { UserModel } from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 
 // Middleware para verificar la autenticación mediante JWT almacenado en cookies
 export const authMiddleware = async (req, res, next) => {
