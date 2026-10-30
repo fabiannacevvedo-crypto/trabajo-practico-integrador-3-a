@@ -33,18 +33,18 @@ categorySchema.virtual('events', {
 });
 
 // Middleware en cascada: Al eliminar una categoría, la remueve del array categories en Event
-// const removeCategoryFromEvents = async function (next) {
-//   const query = this.getQuery();
-//   const categoryId = query._id;
+const removeCategoryFromEvents = async function (next) {
+  const query = this.getQuery();
+  const categoryId = query._id;
 
-//   if (categoryId) {
-//     await mongoose.model('Event').updateMany(
-//       { categories: categoryId },
-//       { $pull: { categories: categoryId } }
-//     );
-//   }
-//   next();
-// };
+  if (categoryId) {
+    await mongoose.model('Event').updateMany(
+      { categories: categoryId },
+      { $pull: { categories: categoryId } }
+    );
+  }
+  next();
+};
 
 categorySchema.pre('findOneAndDelete', removeCategoryFromEvents);
 categorySchema.pre('deleteOne', { document: false, query: true }, removeCategoryFromEvents);

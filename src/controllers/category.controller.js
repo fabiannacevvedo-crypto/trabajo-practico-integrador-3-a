@@ -1,7 +1,7 @@
 
 import { matchedData } from "express-validator";
-import { CategoryModel } from "../models/category.model.js";
-import { EventModel } from "../models/event.model.js";
+import { Category } from "../models/category.model.js";
+import { Event } from "../models/event.model.js";
 
 // POST /api/categories - Crear una categoría (Solo Administrador)
 export const createCategory = async (req, res) => {

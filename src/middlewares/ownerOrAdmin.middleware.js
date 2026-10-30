@@ -1,5 +1,5 @@
 import { isValidObjectId } from "mongoose";
-import { EventModel } from "../models/event.model.js";
+import { Event } from "../models/event.model.js";
 
 // Middleware para verificar que el usuario sea el organizador del evento o administrador
 export const ownerOrAdminMiddleware = async (req, res, next) => {

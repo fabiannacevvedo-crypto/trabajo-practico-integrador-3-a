@@ -1,7 +1,6 @@
 import { body } from "express-validator";
-import { UserModel } from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 import { validateResult } from "./validator.middleware.js"; 
-
 
 // Validador para registro de usuario (POST /api/auth/register)
 export const registerValidator = [
@@ -14,7 +13,7 @@ export const registerValidator = [
     .isAlphanumeric()
     .withMessage("El nombre de usuario debe ser alfanumérico (solo letras y números)")
     .custom(async (value) => {
-      const existingUser = await UserModel.findOne({ username: value, deletedAt: null });
+      const existingUser = await User.findOne({ username: value, deletedAt: null });
       if (existingUser) {
         throw new Error("El nombre de usuario ya se encuentra registrado");
       }
@@ -29,7 +28,7 @@ export const registerValidator = [
     .withMessage("Debe proporcionar un formato de correo electrónico válido")
     .normalizeEmail()
     .custom(async (value) => {
-      const existingEmail = await UserModel.findOne({ email: value, deletedAt: null });
+      const existingEmail = await User.findOne({ email: value, deletedAt: null });
       if (existingEmail) {
         throw new Error("El correo electrónico ya se encuentra registrado");
       }
@@ -40,9 +39,7 @@ export const registerValidator = [
     .notEmpty()
     .withMessage("La contraseña es obligatoria")
     .isLength({ min: 8 })
-    .withMessage("La contraseña debe tener un mínimo de 8 caracteres")
-    .matches(PASSWORD_REGEX)
-    .withMessage("La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número"),
+    .withMessage("La contraseña debe tener un mínimo de 8 caracteres"),
 
   body("role")
     .optional()
@@ -60,18 +57,14 @@ export const registerValidator = [
     .notEmpty()
     .withMessage("El nombre del perfil es obligatorio")
     .isLength({ min: 2, max: 50 })
-    .withMessage("El nombre debe tener entre 2 y 50 caracteres")
-    .matches(ONLY_LETTERS_REGEX)
-    .withMessage("El nombre solo debe contener letras"),
+    .withMessage("El nombre debe tener entre 2 y 50 caracteres"),
 
   body("profile.lastName")
     .trim()
     .notEmpty()
     .withMessage("El apellido del perfil es obligatorio")
     .isLength({ min: 2, max: 50 })
-    .withMessage("El apellido debe tener entre 2 y 50 caracteres")
-    .matches(ONLY_LETTERS_REGEX)
-    .withMessage("El apellido solo debe contener letras"),
+    .withMessage("El apellido debe tener entre 2 y 50 caracteres"),
 
   body("profile.birthDate")
     .optional({ values: "falsy" })
@@ -86,9 +79,7 @@ export const registerValidator = [
     }),
 
   body("profile.phone")
-    .optional({ values: "falsy" })
-    .matches(PHONE_REGEX)
-    .withMessage("El teléfono debe contener únicamente números y tener entre 8 y 15 dígitos"),
+    .optional({ values: "falsy" }),
 
   validateResult,
 ];
@@ -115,17 +106,13 @@ export const updateProfileValidator = [
     .optional()
     .trim()
     .isLength({ min: 2, max: 50 })
-    .withMessage("El nombre debe tener entre 2 y 50 caracteres")
-    .matches(ONLY_LETTERS_REGEX)
-    .withMessage("El nombre solo debe contener letras"),
+    .withMessage("El nombre debe tener entre 2 y 50 caracteres"),
 
   body("lastName")
     .optional()
     .trim()
     .isLength({ min: 2, max: 50 })
-    .withMessage("El apellido debe tener entre 2 y 50 caracteres")
-    .matches(ONLY_LETTERS_REGEX)
-    .withMessage("El apellido solo debe contener letras"),
+    .withMessage("El apellido debe tener entre 2 y 50 caracteres"),
 
   body("birthDate")
     .optional({ values: "falsy" })
@@ -140,9 +127,7 @@ export const updateProfileValidator = [
     }),
 
   body("phone")
-    .optional({ values: "falsy" })
-    .matches(PHONE_REGEX)
-    .withMessage("El teléfono debe contener únicamente números y tener entre 8 y 15 dígitos"),
+    .optional({ values: "falsy" }),
 
   validateResult,
 ];

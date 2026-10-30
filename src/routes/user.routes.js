@@ -5,9 +5,10 @@ import {
     updateUser,
     deleteUser,
 } from "../controllers/user.controller.js";
-import { updateUserValidation } from "../middlewares/validator.middleware.js";
+import { updateUserValidator } from "../middlewares/user.validator.js";
 import { validateMongoIdParam } from "../middlewares/validator.middleware.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { adminMiddleware } from "../middlewares/admin.middleware.js";
 
 export const userRouter = Router();
 

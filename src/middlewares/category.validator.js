@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { CategoryModel } from "../models/category.model.js";
+import { Category } from "../models/category.model.js";
 import { validateResult } from "./validator.middleware.js";
 
 // Validador para crear categoría (POST /api/categories)

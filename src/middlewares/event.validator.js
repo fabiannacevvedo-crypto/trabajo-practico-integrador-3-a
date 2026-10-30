@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
-import { EventModel } from "../models/event.model.js";
-import { CategoryModel } from "../models/category.model.js";
+import { Event } from "../models/event.model.js";
+import { Category } from "../models/category.model.js";
 import { validateResult } from "./validator.middleware.js";
 
 // Validador para crear evento (POST /api/events)
